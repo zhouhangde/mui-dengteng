@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+			</form>
+			<form class="mui-input-group">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						自动登录
+						<div id="autoLogin" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+			</form>
+			<div class="mui-content-padded">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+				</div>
+			</div>
+			<div class="mui-content-padded oauth-area">
+
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.enterfocus.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			(function($, doc) {
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});
+				$.plusReady(function() {
+					/* 锁定屏幕为竖屏模式，调用unlockOrientation()方法恢复到应用的默认值 */
+					plus.screen.lockOrientation("portrait-primary");
+					
+					/* 获取是否为自动登录状态，非自动登录状态为{"autoLogin",false} */
+					var settings = app.getSettings();
+					
+					/* 获取状态,是否含有注册信息（存在手机缓存中）,注册过即为：{“account”:"zhouhang"，"token","token123456789"} ,token注册时设定的*/
+					var state = app.getState();
+					
+					/* 获取主页面index，getWebviewById查找指定标识的WebviewObject窗口 */
+					var mainPage = plus.webview.getWebviewById("offCanvasWrapper");
+					var main_loaded_flag = false;
+					if(!mainPage){
+						/* 首次登录,未打开主页面时 */
+						/* mui预加载首页，方法预加载，可立即返回对应webview的引用，但一次仅能预加载一个页面；若需加载多个webview，则需多次调用mui.preload()方法； */
+						mainPage = $.preload({
+							"id": 'offCanvasWrapper',
+							"url": 'index.html'
+						});
+					}else{
+						/* 已经有此窗口了,暂时不知何时触发？ */
+						main_loaded_flag = true;
+					}
+					
+					/* 主页面监听加载完毕事件 */
+					mainPage.addEventListener("loaded",function () {
+						/* 主页面加载完毕 */
+						main_loaded_flag = true;
+					});
+					
+					/* 进入主页面 */
+					var toMain = function() {
+						//使用定时器的原因：
+						//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
+						var id = setInterval(function () {
+							/* 如果主页面加载完毕 */
+							if(main_loaded_flag){
+								clearInterval(id);
+								/* 执行自定义事件,在对应得首页就可以监听show事件,传过去的参数为null */
+								$.fire(mainPage, 'show', null);
+								
+								/* 主页面窗口对象调用show: 显示Webview窗口，即显示主页窗口 */
+								/* show中，"pop-in": (String 类型 )从右侧平移入栈动画效果 */
+								mainPage.show("pop-in");
+							}
+						},20);
+					};
+					
+					//检查 "登录状态/锁屏状态" 开始
+					/* 表示已登录,已注册, 正常状态下settings.gestures为其他表示有设置锁屏，正常状态下settings.gestures为undefind未锁屏*/
+					if (settings.autoLogin && state.token && settings.gestures) {
+						/* 锁屏状态时打开解锁页面 */
+						$.openWindow({
+							url: 'unlock.html',
+							id: 'unlock',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								//自动显示等待框，默认为true
+								autoShow: false
+							}
+						});
+					} else if (settings.autoLogin && state.token) {
+						toMain();
+					} else {
+						/* 如果未注册或未登陆,则设置登陆信息为null */
+						app.setState(null);
+						//第三方登录按钮
+						var authBtns = ['qihoo', 'weixin', 'sinaweibo', 'qq']; //配置业务支持的第三方登录
+						var auths = {};
+						/* 获取第三方登陆的区域 */
+						var oauthArea = doc.querySelector('.oauth-area');
+						
+						/* OAuth模块管理客户端的用户登录授权验证功能，允许应用访问第三方平台的资源。 */
+						/* getServices: 获取登录授权认证服务列表 */
+						/* getServices的第一个参数successCB: ( ServicesSuccessCallback ) 必选 获取登录授权认证服务成功回调函数
+                        获取登录授权认证服务列表成功时触发回调，并返回终端支持的登录授权认证服务列表？ */
+						plus.oauth.getServices(function(services) {
+							for (var i in services) {
+								var service = services[i];
+								auths[service.id] = service;
+								if (~authBtns.indexOf(service.id)) {
+									var isInstalled = app.isInstalled(service.id);
+									var btn = document.createElement('div');
+									//如果微信未安装，则为不启用状态
+									btn.setAttribute('class', 'oauth-btn' + (!isInstalled && service.id === 'weixin' ? (' disabled') : ''));
+									btn.authId = service.id;
+									btn.style.backgroundImage = 'url("images/' + service.id + '.png")'
+									oauthArea.appendChild(btn);
+								}
+							}
+							$(oauthArea).on('tap', '.oauth-btn', function() {
+								if (this.classList.contains('disabled')) {
+									plus.nativeUI.toast('您尚未安装微信客户端');
+									return;
+								}
+								var auth = auths[this.authId];
+								var waiting = plus.nativeUI.showWaiting();
+								auth.login(function() {
+									waiting.close();
+									plus.nativeUI.toast("登录认证成功");
+									auth.getUserInfo(function() {
+										plus.nativeUI.toast("获取用户信息成功");
+										var name = auth.userInfo.nickname || auth.userInfo.name;
+										app.createState(name, function() {
+											toMain();
+										});
+									}, function(e) {
+										plus.nativeUI.toast("获取用户信息失败：" + e.message);
+									});
+								}, function(e) {
+									waiting.close();
+									plus.nativeUI.toast("登录认证失败：" + e.message);
+								});
+							});
+						}, function(e) {
+							oauthArea.style.display = 'none';
+							plus.nativeUI.toast("获取登录认证失败：" + e.message);
+						});
+						
+					}
+					
+					
+					// 进入主页面后，关闭应用启动界面
+					setTimeout(function() {
+						//关闭 closeSplashscreen: 关闭应用启动界面
+						plus.navigator.closeSplashscreen();
+					}, 600);
+					
+					//检查 "登录状态/锁屏状态" 结束
+					
+					
+					var loginButton = doc.getElementById('login');
+					var accountBox = doc.getElementById('account');
+					var passwordBox = doc.getElementById('password');
+					var autoLoginButton = doc.getElementById("autoLogin");
+					var regButton = doc.getElementById('reg');
+					var forgetButton = doc.getElementById('forgetPassword');
+					
+					/* 监听登录按钮 */
+					loginButton.addEventListener('tap', function(event) {
+						var loginInfo = {
+							account: accountBox.value,
+							password: passwordBox.value
+						};
+						/* 登陆时创建状态,如果输入正确，并进入主页面 */
+						app.login(loginInfo, function(err) {
+							if (err) {
+								/* nativeUI管理系统原生界面，可用于弹出系统原生提示对话框窗口、时间日期选择对话框、等待对话框等 */
+								plus.nativeUI.toast(err);
+								return;
+							}
+							toMain();
+						});
+					});
+					
+					/* 监听鼠标聚焦enter键 */
+					$.enterfocus('#login-form input', function() {
+						/* 触发登陆点击 */
+						$.trigger(loginButton, 'tap');
+					});
+					
+					/* 自动登录按钮切换监听 */
+					/* .classList 属性返回元素的类名 */
+					/* document.getElementById("myDIV").classList.add("mystyle");表示增加类名，否则没有此人为删除自动登录的样式 */
+					autoLoginButton.classList[settings.autoLogin ? 'add' : 'remove']('mui-active')
+					autoLoginButton.addEventListener('toggle', function(event) {
+						setTimeout(function() {
+							/* 表示是否为开启状态 ，对象为{"detail":{"isActive":false}}*/
+							var isActive = event.detail.isActive;
+							settings.autoLogin = isActive;
+							app.setSettings(settings);
+						}, 50);
+					}, false);
+					
+					/* 监听注册点击 */
+					regButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'reg.html',
+							id: 'reg',
+							/* 是否为预加载,目前暂无参数？ */
+							preload: true,
+							show: {
+								//页面显示动画，默认为”slide-in-right“；
+								aniShow: 'pop-in'
+							},
+							styles: {
+								/* Webview窗口侧滑返回事件？ */
+								popGesture: 'hide'
+							},
+							waiting: {
+								/* 等待动画 */
+								autoShow: false
+							}
+						});
+					}, false);
+					
+					/* 忘记密码点击 */
+					forgetButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'forget_password.html',
+							id: 'forget_password',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}, false);
+					
+					//监听浏览器窗口变化
+					window.addEventListener('resize', function() {
+						/* 根据浏览器窗口的变化,判断是否显示底部第三方登陆 */
+						oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';
+					}, false);
+					
+					//监听手机的返回
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							/* 触动两次返回，quit: 退出客户端程序 */
+							plus.runtime.quit();
+						} else {
+							/* 返回一次时 */
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+					
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>
