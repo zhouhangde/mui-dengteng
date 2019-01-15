@@ -9,386 +9,41 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 		<link rel="stylesheet" href="css/mui.min.css">
-		<style>
-			html,
-			body {
-				background-color: #efeff4;
-			}
-			p {
-				text-indent: 22px;
-			}
-			.mui-off-canvas-left {
-				color: #fff;
-			}
-			.title {
-				margin: 35px 15px 10px;
-			}
-			.title+.content {
-				margin: 10px 15px 35px;
-				color: #bbb;
-				text-indent: 1em;
-				font-size: 14px;
-				line-height: 24px;
-			}
-			input {
-				color: #000;
-			}
-			
-			/* 自己写 */
-			.myMuScroll{
-				position: relative;
-			}
-			.myScrollDian{
-				bottom: 90px;
-			}
-		</style>
 	</head>
 
 	<body>
-		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
-			<!--侧滑菜单部分-->
-			<aside id="offCanvasSide" class="mui-off-canvas-left">
-				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<div class="title">我的项目</div>
-						<div class="content">
-							项目描述
-							<p style="margin: 10px 15px;">
-								<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block" style="padding: 5px 20px;">关闭侧滑</button>
-							</p>
-
-						</div>
-						<div class="title" style="margin-bottom: 25px;">项目分类列表</div>
-						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right">
-									项目类型 1
-								</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right">
-									项目类型 2
-								</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right">
-									项目类型 3
-								</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right">
-									项目类型 4
-								</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right">
-									项目类型 5
-								</a>
-							</li>
-							<li class="mui-table-view-cell">
-								<a class="mui-navigate-right">
-									项目类型 6
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</aside>
-			<!--主界面部分-->
-			<div class="mui-inner-wrap">
-				<header class="mui-bar mui-bar-nav">
-					<a href="#offCanvasSide" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
-					<a class="mui-action-back mui-btn mui-btn-link mui-pull-right" href="login.html">退出</a>
-					<h1 class="mui-title">我的项目</h1>
-				</header>
-				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
-					<!-- 下面的div需要去掉mui-scrool -->
-					<div class="mui-scroll myMuScroll">
-						<div class="mui-content-padded">
-							<p style="text-align: center;">
-								王小丫，欢迎登陆
-								消息<span style="color:red">12</span>条
-							</p>
-						</div>
-
-            <!-- 轮播开始 -->
-						<div id="slider" class="mui-slider">
-							<div class="mui-slider-group mui-slider-loop">
-								<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-								<div class="mui-slider-item mui-slider-item-duplicate">
-									<a href="#">
-										<img src="images/yuantiao.jpg">
-										<p class="mui-slider-title">静静看这世界</p>
-									</a>
-								</div>
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="images/shuijiao.jpg">
-										<p class="mui-slider-title">幸福就是可以一起睡觉</p>
-									</a>
-								</div>
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="images/muwu.jpg">
-										<p class="mui-slider-title">想要一间这样的木屋，静静的喝咖啡</p>
-									</a>
-								</div>
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="images/cbd.jpg">
-										<p class="mui-slider-title">Color of SIP CBD</p>
-									</a>
-								</div>
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="images/yuantiao.jpg">
-										<p class="mui-slider-title">静静看这世界</p>
-									</a>
-								</div>
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="images/muwu.jpg">
-										<p class="mui-slider-title">想要一间这样的木屋，静静的喝咖啡</p>
-									</a>
-								</div>
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="images/cbd.jpg">
-										<p class="mui-slider-title">Color of SIP CBD</p>
-									</a>
-								</div>
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="images/yuantiao.jpg">
-										<p class="mui-slider-title">静静看这世界</p>
-									</a>
-								</div>
-								<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-								<div class="mui-slider-item mui-slider-item-duplicate">
-									<a href="#">
-										<img src="images/shuijiao.jpg">
-										<p class="mui-slider-title">幸福就是可以一起睡觉</p>
-									</a>
-								</div>
-							</div>
-							<div class="mui-slider-indicator mui-text-right">
-								<div class="mui-indicator mui-active"></div>
-								<div class="mui-indicator"></div>
-								<div class="mui-indicator"></div>
-								<div class="mui-indicator"></div>
-								<div class="mui-indicator"></div>
-								<div class="mui-indicator"></div>
-								<div class="mui-indicator"></div>
-							</div>
-						</div>
-             <!-- 轮播结束 -->
-					</div>
-					<!-- mui-scrool结束 -->
-					
-					<!-- 九宫格开始 -->
-					<div id="Gallery" class="mui-slider" style="margin-top:15px;">
-						<div class="mui-slider-group">
-							<div class="mui-slider-item">
-								<ul class="mui-table-view mui-grid-view mui-grid-9">
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-home"></span>
-											<div class="mui-media-body">Home</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-email"><span class="mui-badge">5</span></span>
-											<div class="mui-media-body">Email</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-chatbubble"></span>
-											<div class="mui-media-body">Chat</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-location"></span>
-											<div class="mui-media-body">location</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-search"></span>
-											<div class="mui-media-body">Search</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-phone"></span>
-											<div class="mui-media-body">Phone</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="mui-slider-item">
-								<ul class="mui-table-view mui-grid-view mui-grid-9">
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-home"></span>
-											<div class="mui-media-body">Home</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-email"><span class="mui-badge">5</span></span>
-											<div class="mui-media-body">Email</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-chatbubble"></span>
-											<div class="mui-media-body">Chat</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-location"></span>
-											<div class="mui-media-body">location</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-search"></span>
-											<div class="mui-media-body">Search</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-phone"></span>
-											<div class="mui-media-body">Phone</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-gear"></span>
-											<div class="mui-media-body">Setting</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-info"></span>
-											<div class="mui-media-body">about</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-more"></span>
-											<div class="mui-media-body">more</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="mui-slider-item">
-								<ul class="mui-table-view mui-grid-view mui-grid-9">
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-home"></span>
-											<div class="mui-media-body">Home</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-email"><span class="mui-badge">5</span></span>
-											<div class="mui-media-body">Email</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-chatbubble"></span>
-											<div class="mui-media-body">Chat</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-location"></span>
-											<div class="mui-media-body">location</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-search"></span>
-											<div class="mui-media-body">Search</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-phone"></span>
-											<div class="mui-media-body">Phone</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-gear"></span>
-											<div class="mui-media-body">Setting</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-info"></span>
-											<div class="mui-media-body">about</div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-										<a href="#">
-											<span class="mui-icon mui-icon-more"></span>
-											<div class="mui-media-body">more</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-					
-						</div>
-						<div class="mui-slider-indicator myScrollDian">
-							<div class="mui-indicator mui-active"></div>
-							<div class="mui-indicator"></div>
-							<div class="mui-indicator"></div>
-						</div>
-					</div>
-					<!-- 九宫格结束 -->
-				</div>
-				<!-- content结束 -->
-				<!-- offCanvasContentScroll结束 -->
-				<!-- off-canvas backdrop -->
-				<div class="mui-off-canvas-backdrop"></div>
-				
-				<!-- 底部选项卡 -->
-				<nav class="mui-bar mui-bar-tab">
-					<a class="mui-tab-item mui-active" id="tab-index">
-						<span class="mui-icon mui-icon-home"></span>
-						<span class="mui-tab-label">首页</span>
-					</a>
-					<a class="mui-tab-item" id="tab-rw">
-						<span class="mui-icon mui-icon-phone"></span>
-						<span class="mui-tab-label">任务</span>
-					</a>
-					<a class="mui-tab-item" id="tab-tj">
-						<span class="mui-icon mui-icon-email"></span>
-						<span class="mui-tab-label">统计</span>
-					</a>
-					<a class="mui-tab-item" id="tab-set">
-						<span class="mui-icon mui-icon-gear"></span>
-						<span class="mui-tab-label">设置</span>
-					</a>
-				</nav>
-				
-			</div>
-			<!-- 主页面部分结束 -->
-			
-			
-		</div>
+		<!-- 底部选项卡 -->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="home.html" id="tab-index">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="tab-rw" href="pages/mytask.html">
+				<span class="mui-icon mui-icon-phone"></span>
+				<span class="mui-tab-label">任务</span>
+			</a>
+			<a class="mui-tab-item" id="tab-tj" href="pages/tongji.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">统计</span>
+			</a>
+			<a class="mui-tab-item" id="tab-set" href="pages/setting.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">设置</span>
+			</a>
+		</nav>
 		<!-- offCanvasWrapper结束 -->
 		<script src="js/mui.min.js"></script>
 		<script>
 			mui.init({
+				/* 双击监听 */
+				gestureConfig:{
+					doubletap:true
+				},
 				preloadPages:[
+					{
+					  url:'home.html',
+					  id:'home.html'
+					},
 					{
 					  url:'pages/mytask.html',
 					  id:'pages/mytask.html'
@@ -404,126 +59,82 @@
 				  ]
 			});
 			
-			/* 一般情况是ready先，plusReady后；,mui.ready代表DomcontentLoaded，plusReady代表plus基座ok */
-			/* 九宫格滚动 */
-			/* mui.ready(function() {
-				initSetting();
-				silderInit();
-				galleryInit();
-			}); */
+			/* 所有变量 */
+			// 创建子页面变量
+			var aniShow = {};
+			var subpages = ['home.html','pages/mytask.html','pages/setting.html','pages/tongji.html'];
+			var subpage_style = {
+				top: '0px',
+				bottom: '51px',
+			};
+			//当前激活选项变量
+			var activeTab = subpages[0];
+			var title = document.getElementById("title");
 			
 			
-			/* 轮播自动滚动 */
 			mui.plusReady(function(){
-				initSetting();
-				silderInit();
-				galleryInit();
-				
-				//  点击任务打开任务页面
-				document.getElementById('tab-rw').addEventListener('tap',function(){
-					mui.openWindow({
-					    url:'pages/mytask.html',
-					    id:'pages/mytask.html',
-						createNew:true
-				   });
-				});
-				
-				//  点击设置打开设置页面
-				document.getElementById('tab-set').addEventListener('tap',function(){
-					mui.openWindow({
-					    url:'pages/setting.html',
-					    id:'pages/setting.html',
-						createNew:true
-				   });
-				});
-				
-				//  点击统计打开统计页面
-				document.getElementById('tab-tj').addEventListener('tap',function(){
-					mui.openWindow({
-					    url:'pages/tongji.html',
-					    id:'pages/tongji.html',
-						createNew:true
-				   });
-				});
-			})
+				createChildPage();
+			});
 			
-			/* 初始化设置 */
-			function initSetting(){
-				 //整个容器,含有侧滑页和主页面
-				var offCanvasWrapper = mui('#offCanvasWrapper');
-				 //主页面
-				var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
-				 //侧滑菜单容器
-				var offCanvasSide = document.getElementById("offCanvasSide");
-				
-				/* 暂未懂？，非安卓？ */
-				if (!mui.os.android) {
-					document.getElementById("move-togger").classList.remove('mui-hidden');
-					var spans = document.querySelectorAll('.android-only');
-					for (var i = 0, len = spans.length; i < len; i++) {
-						spans[i].style.display = "none";
-					}
-				}
-				
-				 //移动效果是否为整体移动
-				var moveTogether = false;
-				 //侧滑容器的class列表，增加.mui-slide-in即可实现侧滑菜单移动、主界面不动的效果；
-				var classList = offCanvasWrapper[0].classList;
-				
-				
-				 //菜单界面，‘关闭侧滑菜单’按钮的点击事件
-				document.getElementById('offCanvasHide').addEventListener('tap', function() {
-					offCanvasWrapper.offCanvas('close');
-				});
-				
-				 //主界面和侧滑菜单界面均支持区域滚动；
-				mui('#offCanvasSideScroll').scroll();
-				mui('#offCanvasContentScroll').scroll();
-				
-				
-				 //实现ios平台原生侧滑关闭页面；
-				if (mui.os.plus && mui.os.ios) {
-					mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-						plus.webview.currentWebview().setStyle({
-							'popGesture': 'none'
-						});
-					});
-				}
-			}
-			
-			
-			/* 顶部轮播初始化 */
-			function silderInit(){
-				var slider = mui("#slider");
-				slider.slider({
-					interval: 5000
-				});
-			}
-			
-			
-			/* 9宫格滚动初始化 */
-			function galleryInit(){
-				var Gallery = document.getElementById('Gallery');
-				var group = Gallery.querySelector('.mui-slider-group');
-				/* 联合选择器 */
-				var items = mui('.mui-slider-item', group);
-				//克隆第一个节点
-				var first = items[0].cloneNode(true);
-				first.classList.add('mui-slider-item-duplicate');
-				//克隆最后一个节点
-				var last = items[items.length - 1].cloneNode(true);
-				last.classList.add('mui-slider-item-duplicate');
-				//处理是否循环逻辑，若支持循环，需支持两点：
-				//1、在.mui-slider-group节点上增加.mui-slider-loop类
-				//2、重复增加2个循环节点，图片顺序变为：N、1、2...N、1
-				var sliderApi = mui(Gallery).slider();
+			function createChildPage(){
+				var self = plus.webview.currentWebview(); 
+				for (var i = 0; i < 5; i++) {
+					if(i != 2){
+						var temp = {};
+						/* 参数1为新窗口加载的html地址，参数2新窗口标识id，webview窗口的样式（宽，高，位置等） */
+						var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+						if (i > 0) {
+							/* hide: 隐藏Webview窗口 */
+							sub.hide();
+						}else{
+				             /* 若为true，则递归合并,即深度合并 */
+							temp[subpages[i]] = "true";
+							/* extend将两个对象合并成一个对象，后面的覆盖前面的 */
 							
-				group.classList.add('mui-slider-loop');
-				group.insertBefore(last, group.firstChild);
-				group.appendChild(first);
-				sliderApi.refresh();
-				/* sliderApi.gotoItem(0); */
+							mui.extend(aniShow,temp);
+						}
+						/* append: 在Webview窗口中添加子窗口 */
+						self.append(sub); 
+					}	
+				}
+				setTimeout(function () {
+					plus.nativeUI.closeWaiting();//loaded事件完成后关闭系统等待对话框
+					mui.currentWebview.show();   //loaded事件完成后显示当前页面	
+					
+					plus.navigator.closeSplashscreen();  //关闭应用启动界面
+				},1000);
 			}
+			
+			
+			 //选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var targetTab = this.getAttribute('href');
+				/* 当前页面不跳转 */
+				if (targetTab == activeTab) {
+					return;
+				}
+				//更换标题
+				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				
+				//显示目标选项卡
+				//若为iOS平台或非首次显示，则直接显示
+				if(mui.os.ios||aniShow[targetTab]){
+					plus.webview.show(targetTab);
+				}else{
+					//否则，使用fade-in动画，且保存变量
+					var temp = {};
+					temp[targetTab] = "true";
+					mui.extend(aniShow,temp);
+					plus.webview.show(targetTab,"fade-in",300);
+				}
+				
+				//隐藏当前;
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			
+			
 			
 			
 		</script>
